@@ -1,0 +1,9 @@
+[core]
+	editor = vim
+[user]
+	name = x7
+	email = x7.0@outlook.com
+[color]
+	ui = true
+[push]
+	default = simple

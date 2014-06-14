@@ -1,0 +1,122 @@
+# Based on Zeka's Conky Faenza 3.2
+# 100% GPL ~ Feel free to modif!
+# modified by jerusalem
+
+# Default Fonts
+use_xft yes
+xftfont Lucida Grande:size=8
+override_utf8_locale yes
+
+# Performance Settings
+double_buffer yes
+
+# Cache Setting
+imlib_cache_size 0
+
+# Window Settings
+#own_window_class Conky
+own_window yes
+own_window_type normal
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_argb_visual yes
+own_window_argb_value 255
+
+# Window border
+draw_borders no
+draw_shades no
+draw_graph_borders no
+
+# Default Color
+default_color CCCCCC
+
+# Color Title.
+color0 D34E18
+
+# Size and position
+minimum_size 220 844
+#alignment bottom_right
+alignment top_right
+gap_x 0
+gap_y 0
+
+TEXT
+# System info
+${voffset 0}
+${goto 10}Users${goto 50}  ${exec users}
+${goto 10}Uptime${goto 50}  ${uptime_short}
+${goto 10}DiskIO${goto 50}  ${diskio}
+${goto 10}Memory${goto 50}  ${mem} / ${memmax}
+${goto 10}Sysinfo${goto 50}  ${kernel} ${pre_exec}  $machine
+${image ~/.conky/icons/archlinux-wm-gnome.png -p 170,15  40x40}
+${image ~/.conky/icons/spacer.png -p 15,85 194x4}
+# calendar
+${goto 60}${execpi 300 cal | sed '1!d'}
+${voffset 2}${font Lucida Console:size=8}${execpi 300 DJS=`date +%_d`; cal | sed '1d' | sed 's/   /& /g' | sed 's/[^ ] /& /g' | sed /" $DJS "/s/" $DJS "/" "'${color1}'"$DJS"'${color}'" "/ | sed 's/^/ /'}${voffset -10}${font}
+${image ~/.conky/icons/spacer.png -p 15,200 194x4}
+# CPU
+${voffset -5}
+${goto 10}${font}CPU0: ${cpu cpu0}% ${goto 120}CPU1: ${cpu cpu1}%
+${goto 10}${cpubar cpu0 8,70}${goto 120}${cpubar cpu1 8,70}
+${goto 10}${top name 1}${goto 110}  ${top cpu 1}%
+${goto 10}${top name 2}${goto 110}  ${top cpu 2}%
+${goto 10}${top name 3}${goto 110}  ${top cpu 3}%
+${image ~/.conky/icons/spacer.png -p 15,285 194x4}
+# RAM
+${voffset -5}
+${goto 10}RAM: ${memperc}% ${goto 120}SWAP: ${swapperc}%${font}
+${goto 10}${membar 8,70}${goto 120}${swapbar 8,70}
+${goto 10}${processes} processes${goto 120}${running_processes} running
+${goto 10}
+${goto 10}${top_mem name 1}${goto 110}  ${top_mem mem 1}%
+${goto 10}${top_mem name 2}${goto 110}  ${top_mem mem 2}%
+${goto 10}${top_mem name 3}${goto 110}  ${top_mem mem 3}%
+${image ~/.conky/icons/spacer.png -p 15,400 194x4}
+# TEMP
+${voffset 0}
+${goto 10}CPU temperature${goto 120}   -271 °C$color
+${goto 10}Master HD temp${goto 120}   -271 °C$color
+${goto 10}Slave HD temp${goto 120}   -271 °C$color
+${goto 10}
+${image ~/.conky/icons/spacer.png -p 15,465 194x4}
+# NETWORK
+#Wired
+#${if_up enp2s5}
+${voffset -20}
+${goto 10}${upspeedgraph enp2s5 10,70 000000 FF0000}${goto 120}${downspeedgraph enp2s5 10,70 000000 008000}
+${goto 10}${voffset 3}Upspd  ${upspeed enp2s5} ${goto 120}Downspd  ${downspeed enp2s5}
+${goto 10}Total  ${totalup enp2s5}${goto 120}Tatol  ${totaldown enp2s5}
+${voffset 3}
+${goto 10}Local IP${goto 60}   ${addrs enp2s5}
+${goto 10}Public IP${goto 60}   ${execi 600 curl ifconfig.me}
+#${image ~/.conky/icons/network.png -p 185,435 40x40}
+${image ~/.conky/icons/spacer.png -p 15,565 194x4}
+#Wi-Fi
+#${voffset -15}
+#${goto 10}${upspeedgraph wlan0 10,60 000000 FF0000}${goto 105}${downspeedgraph wlan0 10,60 000000 008000}
+#${goto 10}${voffset -6}Upspd: ${upspeed wlan0} ${goto 120}Downspd: ${downspeed wlan0}
+#${goto 120}Intensity: ${wireless_link_qual_perc wlan0}%${goto 10}ESSID: ${wireless_essid wlan0}
+#${goto 10}Total: ${totalup wlan0}${goto 120}Total: ${totaldown wlan0}
+#${goto 10}Wireless mode: ${wireless_mode wlan0}
+#${goto 10}Local IP${goto 70}: ${addrs wlan0}
+#${goto 10}Public IP${goto 70}: ${execi 60 curl ifconfig.me}
+#${goto 10}MAC Addr${goto 70}: ${wireless_ap wlan0}$color${font}
+#${image ~/.conky/icons/wifi.png -p 185,555 40x40}
+#${image ~/.conky/icons/spacer.png -p 15,605 194x4}
+#File system
+${voffset 0}
+${goto 10}Boot: ${fs_free /boot} free of ${fs_size /boot} 
+${goto 10}${fs_bar 4,200 /boot}
+${voffset 3}${goto 10}Root: ${fs_free /} free of ${fs_size /}  
+${goto 10}${fs_bar 4,200 /}
+${voffset 3}${goto 10}Home: ${fs_free /home} free of ${fs_size /home} 
+${goto 10}${fs_bar 4,200 /home}
+#${voffset 3}${goto 10}Windows_c: ${fs_free /home/ms.c} free of ${fs_size /home/ms.c} 
+#${goto 10}${fs_bar 4,200 /home/ms.c}
+#${voffset 3}${goto 10}Windows_d: ${fs_free /home/ms.d} free of ${fs_size /home/ms.d} 
+#${goto 10}${fs_bar 4,200 /home/ms.d}
+${voffset 3}${goto 10}Data: ${fs_free /home/data} free of ${fs_size /home/data} 
+${goto 10}${fs_bar 4,200 /home/data}
+
+#${image ~/.conky/icons/spacer.png -p 15,720 194x4}
+

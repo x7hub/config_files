@@ -1,0 +1,9 @@
+# fcitx
+export XMODIFIERS=@im=fcitx
+export XIM=fcitx
+export XIM_PROFILE=fcitx
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+
+# BUPT gate way
+bash ~/scripts/authBuptGw.sh -i
